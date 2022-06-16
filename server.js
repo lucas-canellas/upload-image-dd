@@ -1,4 +1,5 @@
 const express = require("express")
+var cors = require('cors')
 
 const fs = require("fs")
 const util = require("util")
@@ -11,15 +12,11 @@ const port = process.env.PORT || 8080
 
 const { uploadFile, getFileStream } = require("./s3")
 
-
 const app = express()
 
-// Enable CORS
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
+app.use(cors());
+
+
 
 app.get('/images/:key', (req, res) => {
     const key = req.params.key
