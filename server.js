@@ -7,6 +7,8 @@ const unlinkFile = util.promisify(fs.unlink)
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
+const port = process.env.PORT || 8080
+
 const { uploadFile, getFileStream } = require("./s3")
 
 const app = express()
@@ -31,4 +33,4 @@ app.post("/images", upload.single("image") , async (req, res) => {
     res.send({imagePath: `/images/${result.Key}`})
 })
 
-app.listen(8080, () => console.log("listening on port 8080"))
+app.listen(port, () => console.log("listening on port 8080"))
